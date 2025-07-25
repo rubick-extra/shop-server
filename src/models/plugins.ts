@@ -5,7 +5,26 @@ const Plugin = sequelize.define('Plugin', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
+    allowNull: false,
+  },
+  author: {
+    type: DataTypes.STRING
+  },
+  description: {
+    type: DataTypes.STRING
+  },
+  homepage: {
+    type: DataTypes.STRING
+  },
+  keywords: {
+    type: DataTypes.STRING
+  },
+  latestVersion: {
+    type: DataTypes.STRING
+  },
+  logo: {
+    type: DataTypes.STRING
   },
   name: {
     type: DataTypes.STRING
@@ -13,24 +32,18 @@ const Plugin = sequelize.define('Plugin', {
   pluginName: {
     type: DataTypes.STRING
   },
-  version: {
-    type: DataTypes.STRING
-  },
-  description: {
-    type: DataTypes.STRING
-  },
-  keywords: {
-    type: DataTypes.STRING
-  },
-  author: {
-    type: DataTypes.STRING
-  },
   pluginType: {
     type: DataTypes.STRING
   },
-  logo: {
+  readme: {
+    type: DataTypes.TEXT
+  },
+  source: {
     type: DataTypes.STRING
-  }
-})
+  },
+  versions: {
+    type: DataTypes.STRING
+  },
+});
 
-export default Plugin;
+export { Plugin };

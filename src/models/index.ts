@@ -1,5 +1,7 @@
-import Plugin from "./plugins";
+import sequelize from './sequelize';
 
-export {
-  Plugin
+export * from './plugins';
+
+export function dbReady() {
+  return sequelize.sync({ alter: true });
 }

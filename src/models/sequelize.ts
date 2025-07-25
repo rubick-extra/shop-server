@@ -4,7 +4,7 @@ import path from 'path';
 // 单例实例
 const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: path.join(process.cwd(), './database/data.sqlite')
+  storage: path.join(process.cwd(), './database/data.db')
 });
 
 sequelize.authenticate().then(() => {

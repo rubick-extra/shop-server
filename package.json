@@ -8,11 +8,14 @@
     "dev:prod": "node dist/main.js"
   },
   "dependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "compressing": "^1.10.3",
     "cookie-parser": "~1.4.4",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pug": "2.0.0-beta11",
+    "rimraf": "^6.0.1",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
   },
@@ -28,6 +31,6 @@
     "typescript": "^5.8.3"
   },
   "volta": {
-    "node": "20.19.3"
+    "node": "22.17.1"
   }
 }

@@ -4,12 +4,13 @@
 
 import app from './app';
 import http from 'http';
+import { dbReady } from './models';
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3600');
 app.set('port', port);
 
 /**
@@ -22,9 +23,11 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+dbReady().then(() => {
+  server.listen(port);
+  server.on('error', onError);
+  server.on('listening', onListening);
+});
 
 /**
  * Normalize a port into a number, string, or false.
@@ -73,7 +76,12 @@ function onError(error: any) {
       throw error;
   }
 }
-
+// 定义ANSI颜色转义序列
+const colors = {
+  // 文本颜色
+  reset: '\x1b[0m',
+  blue: '\x1b[34m',
+};
 /**
  * Event listener for HTTP server "listening" event.
  */
@@ -83,5 +91,5 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr?.port;
-  console.log('Listening on ' + bind);
+  console.log(`\nListening on ${colors.blue}http://localhost:${port}${colors.reset}\n`);
 }

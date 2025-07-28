@@ -5,6 +5,7 @@
 import app from './app';
 import http from 'http';
 import { dbReady } from './models';
+import { useRubickShop } from './hooks';
 
 /**
  * Get port from environment and store in Express.
@@ -27,6 +28,7 @@ dbReady().then(() => {
   server.listen(port);
   server.on('error', onError);
   server.on('listening', onListening);
+  useRubickShop();
 });
 
 /**

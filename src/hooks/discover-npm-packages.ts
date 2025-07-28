@@ -14,7 +14,9 @@ export async function discoverNpmPackages(data: any) {
 
   if (!meta) return null;
 
-  const { context } = meta;
+  const { context, name: metaName } = meta;
+
+  if (metaName === "errors/not-found") return null;
 
   const downloadUrl = context.packument.versions[0].dist.tarball;
   const filePath = await downloadZipFile(downloadUrl, context.package, context.packument.version);

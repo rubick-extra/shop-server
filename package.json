@@ -12,6 +12,7 @@
     "cheerio": "^1.1.2",
     "compressing": "^1.10.3",
     "cookie-parser": "~1.4.4",
+    "dayjs": "^1.11.13",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",

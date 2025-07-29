@@ -3,20 +3,21 @@ import path from 'path';
 import compressing from 'compressing';
 import { rimraf } from 'rimraf';
 import { Plugin } from '../models/plugins';
-import { isString, isObject } from '../utils';
+import { isString, isObject, success, error } from '../utils';
 
 export async function discoverNpmPackages(data: any) {
   const { name } = data;
   const url = `https://www.npmjs.com/package/${name}?activeTab=readme`;
-  const response = await fetch(url);
+  const response = await fetch(url).catch(() => null);
+  if (!response) return error('无法从npmjs.com获取npm包信息...');
   const page = await response.text();
   const meta = extractContext(page);
 
-  if (!meta) return null;
+  if (!meta) return error('似乎npm包解析失败，请检查包名是否正确以及网络是否正常');
 
   const { context, name: metaName } = meta;
 
-  if (metaName === "errors/not-found") return null;
+  if (metaName === "errors/not-found") return error('npm包不存在，请检查包名是否正确');
 
   const downloadUrl = context.packument.versions[0].dist.tarball;
   const filePath = await downloadZipFile(downloadUrl, context.package, context.packument.version);
@@ -28,7 +29,7 @@ export async function discoverNpmPackages(data: any) {
   rimraf(decompressedDir);
 
   const types = ['ui', 'system'];
-  if (!types.includes(packageJson.pluginType)) return null;
+  if (!types.includes(packageJson.pluginType)) return error('这个npm包似乎不是插件，请检查包名是否正确');
 
   const versions = context.packument.versions.map((t: any) => {
     return {
@@ -62,7 +63,7 @@ export async function discoverNpmPackages(data: any) {
 
   await updatePlugin(plugin);
 
-  return plugin;
+  return success(plugin);
 }
 
 function extractContext(html: string) {

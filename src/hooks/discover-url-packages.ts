@@ -1,6 +1,8 @@
 import * as cheerio from 'cheerio';
 import { isString, isObject, success, error } from '../utils';
 import { Plugin } from '../models/plugins';
+import fs from 'fs-extra';
+import path from 'path';
 
 export async function discoverUrlPackages(data: any) {
   const { url } = data;
@@ -76,4 +78,6 @@ async function updatePlugin(plugin: any) {
   } else {
     await Plugin.create(plugin);
   }
+  const list = await Plugin.findAll();
+  fs.writeFileSync(path.join(process.cwd(), 'public/plugins', './total-plugins.json'), JSON.stringify(list, null, 2));
 }

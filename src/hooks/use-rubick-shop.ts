@@ -33,4 +33,6 @@ export async function useRubickShop() {
     await sleep(1000);
   }
   console.log('所有原始插件已发现...');
+  const data = await Plugin.findAll();
+  fs.writeFileSync(path.join(process.cwd(), 'public/plugins', './total-plugins.json'), JSON.stringify(data, null, 2));
 }

@@ -25,16 +25,16 @@ function afterBuild() {
       }
     },
     buildEnd() {
-      {
-        const form = path.join(__dirname, 'src/public');
-        const to = path.join(__dirname, 'dist/public');
-        fs.copy(form, to);
-      };
-      {
-        const form = path.join(__dirname, 'src/views');
-        const to = path.join(__dirname, 'dist/views');
-        fs.copy(form, to);
-      }
+      // {
+      //   const form = path.join(__dirname, 'src/public');
+      //   const to = path.join(__dirname, 'dist/public');
+      //   fs.copy(form, to);
+      // };
+      // {
+      //   const form = path.join(__dirname, 'src/views');
+      //   const to = path.join(__dirname, 'dist/views');
+      //   fs.copy(form, to);
+      // }
     }
   };
 }

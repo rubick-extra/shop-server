@@ -6,7 +6,8 @@ yarn-debug.log*
 yarn-error.log*
 database/
 dist/
-plugins/
+./plugins/
+public/plugins/total-plugins.json
 update-time.txt
 # Runtime data
 pids

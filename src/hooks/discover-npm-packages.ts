@@ -134,4 +134,6 @@ async function updatePlugin(plugin: any) {
   } else {
     await Plugin.create(plugin);
   }
+  const list = await Plugin.findAll();
+  fs.writeFileSync(path.join(process.cwd(), 'public/plugins', './total-plugins.json'), JSON.stringify(list, null, 2));
 }

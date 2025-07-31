@@ -23,13 +23,13 @@ export async function discoverNpmPackages(data: any) {
   const filePath = await downloadZipFile(downloadUrl, context.package, context.packument.version);
 
   const decompressedDir = await extractTgzFile(filePath);
-  const packageJson = readPackageJson(decompressedDir);
+  const pkgjson = readPackageJson(decompressedDir);
   const readme = readReadme(decompressedDir);
 
   rimraf(decompressedDir);
 
   const types = ['ui', 'system'];
-  if (!types.includes(packageJson.pluginType)) return error('这个npm包似乎不是插件，请检查包名是否正确');
+  if (!types.includes(pkgjson.pluginType)) return error('这个npm包似乎不是插件，请检查包名是否正确');
 
   const versions = context.packument.versions.map((t: any) => {
     return {
@@ -39,23 +39,25 @@ export async function discoverNpmPackages(data: any) {
     }
   })
 
-  const keywords = packageJson.keywords || [];
+  const keywords = pkgjson.keywords || [];
 
-  if (isObject(packageJson.author)) {
-    const { name } = packageJson.author;
-    packageJson.author = name;
+  if (isObject(pkgjson.author)) {
+    const { name } = pkgjson.author;
+    pkgjson.author = name;
   }
 
+  pkgjson.homePage ??= pkgjson.homepage; 
+
   const plugin = {
-    author: isString(packageJson.author) ? packageJson.author : '',
+    author: isString(pkgjson.author) ? pkgjson.author : '',
     description: isString(context.packument.description) ? context.packument.description : '',
     keywords: JSON.stringify(keywords),
-    homepage: isString(packageJson.homePage) ? packageJson.homePage : '',
+    homePage: isString(pkgjson.homePage) ? pkgjson.homePage : '',
     latestVersion: isString(context.packument.version) ? context.packument.version : '',
-    logo: isString(packageJson.logo) ? packageJson.logo : '',
+    logo: isString(pkgjson.logo) ? pkgjson.logo : '',
     name: isString(context.package) ? context.package : '',
-    pluginName: isString(packageJson.pluginName) ? packageJson.pluginName : '',
-    pluginType: isString(packageJson.pluginType) ? packageJson.pluginType : '',
+    pluginName: isString(pkgjson.pluginName) ? pkgjson.pluginName : '',
+    pluginType: isString(pkgjson.pluginType) ? pkgjson.pluginType : '',
     readme: readme,
     source: 'npm',
     versions: JSON.stringify(versions),

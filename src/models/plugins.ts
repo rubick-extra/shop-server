@@ -14,7 +14,7 @@ const Plugin = sequelize.define('Plugin', {
   description: {
     type: DataTypes.STRING
   },
-  homepage: {
+  homePage: {
     type: DataTypes.STRING
   },
   keywords: {

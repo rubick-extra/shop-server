@@ -44,11 +44,13 @@ async function resolveGitee(u: URL) {
     pkgjson.author = name;
   }
 
+  pkgjson.homePage ??= pkgjson.homepage; 
+
   const plugin = {
     author: isString(pkgjson.author) ? pkgjson.author : '',
     description: isString(pkgjson.description) ? pkgjson.description : '',
     keywords: JSON.stringify(pkgjson.keywords || []),
-    homepage: isString(pkgjson.homepage) ? pkgjson.homepage : '',
+    homePage: isString(pkgjson.homePage) ? pkgjson.homePage : '',
     latestVersion: isString(pkgjson.version) ? pkgjson.version : '',
     logo: isString(pkgjson.logo) ? pkgjson.logo : '',
     name: isString(pkgjson.name) ? pkgjson.name : '',

@@ -48,17 +48,26 @@ async function resolveGitee(u: URL) {
 
   const plugin = {
     author: isString(pkgjson.author) ? pkgjson.author : '',
+    dependencies: pkgjson.dependencies,
     description: isString(pkgjson.description) ? pkgjson.description : '',
-    keywords: JSON.stringify(pkgjson.keywords || []),
+    development: isString(pkgjson.development) ? pkgjson.development : '',
+    entry: isString(pkgjson.entry) ? pkgjson.entry : '',
+    features: pkgjson.features || [],
+    keywords: pkgjson.keywords || [],
     homePage: isString(pkgjson.homePage) ? pkgjson.homePage : '',
     latestVersion: isString(pkgjson.version) ? pkgjson.version : '',
+    license: isString(pkgjson.license) ? pkgjson.license : '',
     logo: isString(pkgjson.logo) ? pkgjson.logo : '',
+    main: isString(pkgjson.main) ? pkgjson.main : '',
     name: isString(pkgjson.name) ? pkgjson.name : '',
     pluginName: isString(pkgjson.pluginName) ? pkgjson.pluginName : '',
     pluginType: isString(pkgjson.pluginType) ? pkgjson.pluginType : '',
+    preload: isString(pkgjson.preload) ? pkgjson.preload : '',
     readme: readme,
+    scripts: pkgjson.scripts || {},
     source: 'url',
-    versions: JSON.stringify(pkgjson.versions || []),
+    versions: pkgjson.versions || [],
+    volta: pkgjson.volta,
   }
 
   plugin.pluginName = plugin.pluginName || plugin.name;

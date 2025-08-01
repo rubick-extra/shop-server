@@ -39,8 +39,6 @@ export async function discoverNpmPackages(data: any) {
     }
   })
 
-  const keywords = pkgjson.keywords || [];
-
   if (isObject(pkgjson.author)) {
     const { name } = pkgjson.author;
     pkgjson.author = name;
@@ -50,17 +48,26 @@ export async function discoverNpmPackages(data: any) {
 
   const plugin = {
     author: isString(pkgjson.author) ? pkgjson.author : '',
+    dependencies: pkgjson.dependencies,
     description: isString(context.packument.description) ? context.packument.description : '',
-    keywords: JSON.stringify(keywords),
+    development: isString(pkgjson.development) ? pkgjson.development : '',
+    entry: isString(pkgjson.entry) ? pkgjson.entry : '',
+    features: pkgjson.features || [],
+    keywords: pkgjson.keywords || [],
     homePage: isString(pkgjson.homePage) ? pkgjson.homePage : '',
     latestVersion: isString(context.packument.version) ? context.packument.version : '',
+    license: isString(pkgjson.license) ? pkgjson.license : '',
     logo: isString(pkgjson.logo) ? pkgjson.logo : '',
+    main: isString(pkgjson.main) ? pkgjson.main : '',
     name: isString(context.package) ? context.package : '',
     pluginName: isString(pkgjson.pluginName) ? pkgjson.pluginName : '',
     pluginType: isString(pkgjson.pluginType) ? pkgjson.pluginType : '',
+    preload: isString(pkgjson.preload) ? pkgjson.preload : '',
     readme: readme,
+    scripts: pkgjson.scripts || {},
     source: 'npm',
-    versions: JSON.stringify(versions),
+    versions: versions,
+    volta: pkgjson.volta,
   }
 
   await updatePlugin(plugin);

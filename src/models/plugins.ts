@@ -69,7 +69,7 @@ const Plugin = sequelize.define('Plugin', {
     type: DataTypes.JSON
   },
   volta: {
-    type: DataTypes.STRING
+    type: DataTypes.JSON
   }
 });
 
